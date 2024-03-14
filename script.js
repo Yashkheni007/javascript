@@ -1,9 +1,14 @@
 let newRollNo = 0;
+let totalRows = 0;
+
 function addRow() {
     newRollNo++;
+    totalRows++;
+    totalStudent();
+
     var table = document.querySelector("table");
     var newRow = document.createElement("tr");
-    totalStudent();
+
 
     newRow.innerHTML = `<td><input class = "name" ></td>
     <td><input type = "number" value="${newRollNo}" class = "rollNo" id = "rollNo" min = "1" onclick="addRow()"></td>
@@ -22,8 +27,13 @@ function addRow() {
 function deleteRow(dlt) {
     let row = dlt.closest("tr");
     row.parentNode.removeChild(row);
+    totalRows--;
     totalStudent();
     calculateValue();
+}
+
+function totalStudent() {
+    document.querySelector("#totalNumberOfStudent").value = totalRows;
 }
 
 function calculateTotal(cal) {
@@ -76,12 +86,6 @@ function calculateValue() {
         const averageMark = count.reduce((total, value) => total + value, 0) / count.length;
         document.querySelector("#averageScore").value = averageMark.toFixed(2);
     }
-}
-
-function totalStudent() {
-    x = document.getElementById("tblData").rows.length;
-    // console.log(x)
-    document.querySelector("#totalNumberOfStudent").value = x;
 }
 
 function addMultipleRow() {
